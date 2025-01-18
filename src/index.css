@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.start-page, .quiz-page, .result-page {
+    text-align: center;
+    margin: 20px;
+}
+
+.timer {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.navigation-panel button {
+    margin: 5px;
+}
