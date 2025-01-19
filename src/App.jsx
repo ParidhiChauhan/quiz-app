@@ -3,6 +3,7 @@ import StartPage from "./components/StartPage";
 import QuizPage from "./components/QuizPage";
 import ResultPage from "./components/ResultPage";
 import { QuizProvider } from "./context/QuizContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     const [currentPage, setCurrentPage] = useState("start");

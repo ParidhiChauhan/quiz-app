@@ -6,16 +6,37 @@ function ResultPage() {
 
     return (
         <div className="result-page">
-            <h1>Quiz Results</h1>
-            <ul>
-                {quizData.map((question, index) => (
-                    <li key={index}>
-                        <p>Question: {question.question}</p>
-                        <p>Your Answer: {answers[index] || "Not Answered"}</p>
-                        <p>Correct Answer: {question.correct_answer}</p>
-                    </li>
-                ))}
-            </ul>
+            <div className="result-card">
+                <h1>Quiz Results</h1>
+                <ul className="result-list">
+                    {quizData.map((question, index) => (
+                        <li key={index} className="result-item">
+                            <div className="question-section">
+                                <p className="question-text">
+                                    <strong>Q{index + 1}: </strong>
+                                    {question.question}
+                                </p>
+                                <p className="answer-text">
+                                    <strong>Your Answer: </strong>
+                                    <span
+                                        className={
+                                            answers[index] === question.correct_answer
+                                                ? "correct"
+                                                : "incorrect"
+                                        }
+                                    >
+                                        {answers[index] || "Not Answered"}
+                                    </span>
+                                </p>
+                                <p className="correct-answer">
+                                    <strong>Correct Answer: </strong>
+                                    {question.correct_answer}
+                                </p>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
