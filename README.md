@@ -15,6 +15,7 @@ This is a simple quiz application built with React.js that allows users to answe
 - Open Trivia Database API (`https://opentdb.com/api.php?amount=15`) for quiz questions
 
 ## Project Structure:
+```plaintext
 quiz-app/
 │── public/
 │   │── index.html
