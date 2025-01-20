@@ -8,23 +8,23 @@ function QuizPage({ setCurrentPage }) {
     const { quizData, setAnswers } = useContext(QuizContext);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [userAnswers, setUserAnswers] = useState({});
+    const [animationClass, setAnimationClass] = useState("");
 
     // Handle user answer
     const handleAnswer = (answer) => {
         setUserAnswers({ ...userAnswers, [currentQuestion]: answer });
     };
 
-    // Navigate to previous question
-    const goToPrevious = () => {
-        if (currentQuestion > 0) {
-            setCurrentQuestion((prev) => prev - 1);
-        }
-    };
-
-    // Navigate to next question
-    const goToNext = () => {
-        if (currentQuestion < quizData.length - 1) {
-            setCurrentQuestion((prev) => prev + 1);
+    // Change question with animation
+    const changeQuestion = (newQuestion) => {
+        if (newQuestion !== currentQuestion) {
+            // Add exit animation
+            setAnimationClass("fade-out");
+            setTimeout(() => {
+                // Update the question after the animation
+                setCurrentQuestion(newQuestion);
+                setAnimationClass("fade-in");
+            }, 300); // Match CSS animation duration
         }
     };
 
@@ -38,20 +38,21 @@ function QuizPage({ setCurrentPage }) {
         <div className="quiz-page">
             <Timer onTimeout={submitQuiz} />
             <NavigationPanel
-    totalQuestions={quizData.length}
-    currentQuestion={currentQuestion}
-    setCurrentQuestion={setCurrentQuestion}
-    userAnswers={userAnswers}
-/>
-
-            <QuestionCard
-                question={quizData[currentQuestion]}
-                handleAnswer={handleAnswer}
-                userAnswer={userAnswers[currentQuestion]}
+                totalQuestions={quizData.length}
+                currentQuestion={currentQuestion}
+                setCurrentQuestion={changeQuestion}
+                userAnswers={userAnswers}
             />
+            <div className={`question-container ${animationClass}`}>
+                <QuestionCard
+                    question={quizData[currentQuestion]}
+                    handleAnswer={handleAnswer}
+                    userAnswer={userAnswers[currentQuestion]}
+                />
+            </div>
             <div className="navigation-buttons">
                 <button
-                    onClick={goToPrevious}
+                    onClick={() => changeQuestion(currentQuestion - 1)}
                     disabled={currentQuestion === 0}
                     className={`nav-button ${currentQuestion === 0 ? "disabled" : ""}`}
                 >
@@ -59,7 +60,7 @@ function QuizPage({ setCurrentPage }) {
                 </button>
                 {currentQuestion < quizData.length - 1 ? (
                     <button
-                        onClick={goToNext}
+                        onClick={() => changeQuestion(currentQuestion + 1)}
                         className="nav-button"
                     >
                         Next
