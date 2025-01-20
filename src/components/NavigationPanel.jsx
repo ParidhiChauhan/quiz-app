@@ -1,5 +1,3 @@
-import React from "react";
-
 function NavigationPanel({ totalQuestions, currentQuestion, setCurrentQuestion, userAnswers }) {
     return (
         <div className="navigation-panel">
@@ -7,7 +5,9 @@ function NavigationPanel({ totalQuestions, currentQuestion, setCurrentQuestion, 
                 <button
                     key={index}
                     onClick={() => setCurrentQuestion(index)}
-                    className={`question-number ${currentQuestion === index ? "active" : ""}`}
+                    className={`nav-circle 
+                        ${currentQuestion === index ? "active" : ""} 
+                        ${userAnswers[index] !== undefined ? "attempted" : ""}`}
                 >
                     {index + 1}
                 </button>
